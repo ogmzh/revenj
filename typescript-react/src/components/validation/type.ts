@@ -2,6 +2,7 @@ import {
   INT_MAX_VALUE,
   INT_MIN_VALUE,
 } from '../../constants';
+import { formatNumberToDecimals } from '../../util/Formatters/NumberFormatter';
 import { Numeric, parseBigNum } from '../../util/NumberUtils/NumberUtils';
 import { ValidateTrigger } from './interfaces';
 import { validatorCreatorFactory } from './validatorCreatorFactory';
@@ -12,7 +13,7 @@ import { validatorCreatorFactory } from './validatorCreatorFactory';
 export const isIntegerCreator =
   validatorCreatorFactory<void, Numeric, any, any>({
     getValidatorErrorMessage: (_, input) => !(Number(input) <= INT_MAX_VALUE && Number(input) >= INT_MIN_VALUE) ?
-      'Must be a whole number with up to 10 digits' :
+      `Must be a whole number between ${formatNumberToDecimals(INT_MIN_VALUE, 0)} and ${formatNumberToDecimals(INT_MAX_VALUE, 0)}` :
       'Must be a whole number',
     operator: () => (input) => {
       try {
